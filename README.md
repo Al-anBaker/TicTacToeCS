@@ -1,6 +1,6 @@
-#Tic Tac Toe Csharp
+Tic Tac Toe C#
 
-This is a simple Tic Tac Toe game based in a Csharp console, it is ported from a Python version built in 2023.
+This is a simple Tic Tac Toe game based in a C# console, it is ported from a Python version built in 2023.
 
 The Game allows each player to pick a Symbol or a string as their 'Token' for the game, It only has Local Multiplayer with two people, and no single player gameplay yet.
 
