@@ -12,7 +12,7 @@ public class Game
     public static string currentplayer = "";
     
 
-
+    //This code initalises the varibles and makes the Game_board
     public static void Main()
     {
         Game.turn = 0;
@@ -21,18 +21,23 @@ public class Game
         {
             Game.game_board[i] = emty;
         }
+        //We ask and save what symbol the 1st player wants
         Console.WriteLine("Player One: Please input your letter or number you want to use: ");
         Game.pl1 = Console.ReadLine();
+        //This saves the 1st Player symbol in an array of current players at the 0th posiition
         Game.players[0] = pl1;
+        // We ask and save what symbol the 2nd player wants
         Console.WriteLine("Player Two: Please input your letter or number you want to use: ");
         Game.pl2 = Console.ReadLine();
+        //This saves the 2nd Player Symbol in an array of current players at the 1st position
         Game.players[1] = pl2;
 
 
 
         Game_Loop();
     }
-
+    //This is where we draw the gameboard, it writes each line of the board at a time with spacers inbetween each, the numbers on the side helps the players
+    //see what key the need to press
     public static void Draw_Game() 
     {
         Console.WriteLine("\n");
@@ -44,7 +49,7 @@ public class Game
         Console.WriteLine("\n");
 
     }
-
+    //This is the first Win Condition check, it checks to see if any of the rows have a matching player symbol in all three in a row
     public static void Check_Rows()
     {
 
@@ -56,7 +61,7 @@ public class Game
             Win_Check();
         }
     }
-
+    //This is the second Win Condition check, it checks to see if each player has a matching 3 in any collum
     public static void Check_Collums()
     {
 
@@ -68,6 +73,7 @@ public class Game
         }
     }
 
+    // Then for the third check we check to see of any players have a matching 3 in any diaginol
     public static void Check_Diags()
     {
 
@@ -79,7 +85,7 @@ public class Game
             Win_Check();
         }
     }
-
+    //If the first 3 checks fail then we check if there is a tie, where no two players can win
     public static void Check_Tie()
     {
        if (!Array.Exists(game_board, element => element == emty))
@@ -89,7 +95,7 @@ public class Game
         Win_Check();
        }
     }
-
+    // At the end of Win check we see whos turn it was and Write to the console who won and to game over, then re reinitalise the game
     public static void Game_Over()
     {
         if (Game.turn == 1)
@@ -106,6 +112,7 @@ public class Game
             Console.WriteLine("Game Over!");
             Play_Again();
         }
+        //Game Turn can only be 3 if there was a tie
         else if (Game.turn == 3)
         {
             Draw_Game();
@@ -114,7 +121,7 @@ public class Game
             Play_Again();
         }
     }
-
+    //Win Check basically just runs an if statement to see if the gameover varible has been flipped to true
     public static void Win_Check() 
     {
         if (Game.gameover = true)
@@ -126,7 +133,7 @@ public class Game
             return;
         }
     }
-
+    //This lists the order of checks for a win, starting with rows, then Collums, then Diags and if all those pass then go to tie
     public static void Checks()
     {
         Check_Rows();
@@ -134,7 +141,7 @@ public class Game
         Check_Diags();
         Check_Tie();
     }
-
+    //This is the main Game Loop, all it does is call the other methods aand define, what method is called when
     public static void Game_Loop() 
     {
         Draw_Game();
@@ -154,7 +161,7 @@ public class Game
     {
         Main();
     }
-
+    //This is the 1st Players turn it sets the current player to pl1 for the win checks, then asks to pick a number 1-9
     public static void Player_One()
     {
         Game.currentplayer = pl1;
@@ -162,7 +169,7 @@ public class Game
         int userturn = Convert.ToInt32(Console.ReadLine());
         userturn = userturn - 1;
         Game.turn = 1;
-
+        //If the player selcts a number outside the bounds of the game, it return to the start of their turn and asks them to pick another number
         if (userturn > 8 | userturn < 0)
         {
             Console.WriteLine("Selection is not 1-9");
@@ -170,6 +177,7 @@ public class Game
         }
         else 
         {
+            //If the player picked spot is already taken then restart players turn with message Spot is Taken
             if (game_board[userturn] == emty)
             {
                 game_board[userturn] = pl1;
@@ -181,7 +189,7 @@ public class Game
             }
         }
     }
-
+    // Works the same as Player One, just with Player One swapped with the Player 2 varibles
     public static void Player_Two()
     {
         Game.currentplayer = pl2;
