@@ -59,11 +59,10 @@ public class Game
 
     public static void Check_Collums()
     {
-        bool collum_1 = ((game_board[0] = game_board[1] = game_board[2]) != emty) && (game_board[0] = game_board[1] = game_board[2] = pl1 || pl2);
-        bool collum_2 = ((game_board[0] = game_board[1] = game_board[2]) != emty) && (game_board[0] = game_board[1] = game_board[2] = pl1 || pl2);
-        bool collum_3 = ((game_board[0] = game_board[1] = game_board[2]) != emty) && (game_board[0] = game_board[1] = game_board[2] = pl1 || pl2);
 
-        if (collum_1 || collum_2 || collum_3) {
+        if ((game_board[0] == currentplayer) && (game_board[3] == currentplayer) && (game_board[6] == currentplayer) || 
+            (game_board[1] == currentplayer) && (game_board[4] == currentplayer) && (game_board[7] == currentplayer) ||
+            (game_board[2] == currentplayer) && (game_board[5] == currentplayer) && (game_board[8] == currentplayer)) {
             Game.gameover = true;
             Win_Check();
         }
@@ -71,10 +70,11 @@ public class Game
 
     public static void Check_Diags()
     {
-        bool diag_1 = ((game_board[0] = game_board[1] = game_board[2]) != emty) && (game_board[0] = game_board[1] = game_board[2] = pl1 || pl2);
-        bool diag_2 = ((game_board[0] = game_board[1] = game_board[2]) != emty) && (game_board[0] = game_board[1] = game_board[2] = pl1 || pl2);
 
-        if (diag_1 || diag_2) {
+
+        if ((game_board[0] == currentplayer) && (game_board[4] == currentplayer) && (game_board[8] == currentplayer) || 
+            (game_board[2] == currentplayer) && (game_board[4] == currentplayer) && (game_board[6] == currentplayer)) 
+            {
             Game.gameover = true;
             Win_Check();
         }
@@ -82,7 +82,7 @@ public class Game
 
     public static void Check_Tie()
     {
-       if (Array.Exists(game_board, element => element = emty) = false)
+       if (!Array.Exists(game_board, element => element == emty))
        {
         turn = 3;
         gameover = true;
@@ -92,21 +92,21 @@ public class Game
 
     public static void Game_Over()
     {
-        if (Game.turn = 1)
+        if (Game.turn == 1)
         {
             Draw_Game();
             Console.WriteLine("Player One Wins!");
             Console.WriteLine("Game Over!");
             Play_Again();
         }
-        else if (Game.turn = 2)
+        else if (Game.turn == 2)
         {
             Draw_Game();
             Console.WriteLine("Player Two Wins!");
             Console.WriteLine("Game Over!");
             Play_Again();
         }
-        else if (Game.turn = 3)
+        else if (Game.turn == 3)
         {
             Draw_Game();
             Console.WriteLine("Tie!");
@@ -170,7 +170,7 @@ public class Game
         }
         else 
         {
-            if (game_board[userturn] = emty)
+            if (game_board[userturn] == emty)
             {
                 game_board[userturn] = pl1;
             }
@@ -198,7 +198,7 @@ public class Game
         }
         else 
         {
-            if (game_board[userturn] = emty)
+            if (game_board[userturn] == emty)
             {
                 game_board[userturn] = pl2;
             }
