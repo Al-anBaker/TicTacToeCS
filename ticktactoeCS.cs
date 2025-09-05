@@ -10,6 +10,7 @@ public class Game
     public static string[] game_board = new string[9];
     public static string[] players = new string[2];
     public static string currentplayer = "";
+    public static int ai = 0;
     
 
     //This code initalises the varibles and makes the Game_board
@@ -21,20 +22,32 @@ public class Game
         {
             Game.game_board[i] = emty;
         }
+
+        Console.WriteLine("How many Players: ");
+        Game.ai = Convert.ToInt32(Console.ReadLine()) - 1;
         //We ask and save what symbol the 1st player wants
         Console.WriteLine("Player One: Please input your letter or number you want to use: ");
         Game.pl1 = Console.ReadLine();
         //This saves the 1st Player symbol in an array of current players at the 0th posiition
         Game.players[0] = pl1;
-        // We ask and save what symbol the 2nd player wants
-        Console.WriteLine("Player Two: Please input your letter or number you want to use: ");
-        Game.pl2 = Console.ReadLine();
-        //This saves the 2nd Player Symbol in an array of current players at the 1st position
-        Game.players[1] = pl2;
+        if (Game.ai != 0) 
+        {
+            // We ask and save what symbol the 2nd player wants
+            Console.WriteLine("Player Two: Please input your letter or number you want to use: ");
+            Game.pl2 = Console.ReadLine();
+            //This saves the 2nd Player Symbol in an array of current players at the 1st position
+            Game.players[1] = pl2;
+            Game_Loop(0);
+        }
+        else
+        {
+            Console.WriteLine("Ai will be using Symbol 'O'");
+            Game.pl2 = "O";
+            Game_Loop(1);
+        }
 
 
 
-        Game_Loop();
     }
     //This is where we draw the gameboard, it writes each line of the board at a time with spacers inbetween each, the numbers on the side helps the players
     //see what key the need to press
@@ -142,7 +155,7 @@ public class Game
         Check_Tie();
     }
     //This is the main Game Loop, all it does is call the other methods aand define, what method is called when
-    public static void Game_Loop() 
+    public static void Game_Loop(int Ai)
     {
         Draw_Game();
         Player_One();
@@ -150,11 +163,18 @@ public class Game
         Checks();
 
         Draw_Game();
-        Player_Two();
+        if (Ai == 1)
+        {
+            Player_Ai();
+        }
+        else 
+        {
+            Player_Two();
+        }
 
         Checks();
 
-        Game_Loop();
+        Game_Loop(Ai);
     }
 
     public static void Play_Again()
@@ -215,6 +235,21 @@ public class Game
                 Console.WriteLine("Spot is Taken");
                 Player_Two();
             }
+        }
+    }
+    public static void Player_Ai() 
+    {
+        Game.currentplayer = pl2;
+        Game.turn = 2;
+        Random rnd = new Random();
+        int aiMove;
+        aiMove = rnd.Next(0, 8);
+        if (game_board[aiMove] == emty) {
+            game_board[aiMove] = pl2;
+        }
+        else
+        {
+            Player_Ai();
         }
     }
 }
